@@ -4,6 +4,7 @@ void setup() {
   
   size(600, 400);
   
+  // Integers within this dictionary are used multiple times in mutliple methods
   variables = new IntDict();
   
   // Available fonts are a 0 based index
@@ -23,17 +24,6 @@ void setup() {
   textSize(30);
   text("Total Fonts: \n" + variables.get("totalFonts"), 300, 30);
   
-  // The inital font generation. This code is copied to every time the font is changed
-  fill(255);
-  rect(-1, 80, width + 1, height - 130);
-
-  textFont(createFont(fontList[variables.get("currentFontNum")], 128));
-  fill(0);
-  textSize(20);
-  text(fontList[variables.get("currentFontNum")] + "\n Font #" + variables.get("currentFontNum"), 300, 200);
-
-  println("Current font is " + fontList[variables.get("currentFontNum")] + ", which is font #" + variables.get("currentFontNum"));
-
   /* 
   Creation of the button visuals. 
   pushMatrix(); and translate(); are changing where the program's 0,0 coordinates are, 
@@ -82,8 +72,26 @@ void setup() {
   fill(0);
   text("-100", -20 - (buttonWidth * 2), -13);
 
-  popMatrix(); 
+  popMatrix();
   
+  // Splitting code that will run often into its own function, remembering the fontList array
+  drawVisuals(fontList);
+  
+}
+
+void drawVisuals(String[] fontList){
+  
+  // The font generation. This code is copied to every time the function is called on with drawVisuals(fontList);
+  fill(255);
+  rect(-1, 80, width + 1, height - 130);
+
+  textFont(createFont(fontList[variables.get("currentFontNum")], 128));
+  fill(0);
+  textSize(20);
+  text(fontList[variables.get("currentFontNum")] + "\n Font #" + variables.get("currentFontNum"), 300, 200);
+
+  println("Current font is " + fontList[variables.get("currentFontNum")] + ", which is font #" + variables.get("currentFontNum"));
+
 }
 
 // From what I've learned, your program must have a draw function to keep it running, even if it's empty.
@@ -111,18 +119,10 @@ void mousePressed() {
           
           variables.set("currentFontNum", variables.get("currentFontNum") + 1);
           
-          fill(255);
-          rect(-1, 80, width + 1, height - 130);
-      
           String[] fontList = PFont.list();
-      
-          textFont(createFont(fontList[variables.get("currentFontNum")], 128));
-          fill(0);
-          textSize(20);
-          text(fontList[variables.get("currentFontNum")] + "\n Font #" + variables.get("currentFontNum"), 300, 200);
-      
-          println("Current font is " + fontList[variables.get("currentFontNum")] + ", which is font #" + variables.get("currentFontNum"));
- 
+          
+          drawVisuals(fontList);
+  
         }
         
       }
@@ -136,19 +136,11 @@ void mousePressed() {
         if (variables.get("currentFontNum") < variables.get("totalFonts") - 9) {
           
           variables.set("currentFontNum", variables.get("currentFontNum") + 10);
-          
-          fill(255);
-          rect(-1, 80, width + 1, height - 130);
       
           String[] fontList = PFont.list();
       
-          textFont(createFont(fontList[variables.get("currentFontNum")], 128));
-          fill(0);
-          textSize(20);
-          text(fontList[variables.get("currentFontNum")] + "\n Font #" + variables.get("currentFontNum"), 300, 200);
-      
-          println("Current font is " + fontList[variables.get("currentFontNum")] + ", which is font #" + variables.get("currentFontNum"));
- 
+          drawVisuals(fontList);
+          
         }
       
       }
@@ -162,19 +154,11 @@ void mousePressed() {
         if (variables.get("currentFontNum") < variables.get("totalFonts") - 99) {
           
           variables.set("currentFontNum", variables.get("currentFontNum") + 100);
-          
-          fill(255);
-          rect(-1, 80, width + 1, height - 130);
       
           String[] fontList = PFont.list();
       
-          textFont(createFont(fontList[variables.get("currentFontNum")], 128));
-          fill(0);
-          textSize(20);
-          text(fontList[variables.get("currentFontNum")] + "\n Font #" + variables.get("currentFontNum"), 300, 200);
-      
-          println("Current font is " + fontList[variables.get("currentFontNum")] + ", which is font #" + variables.get("currentFontNum"));
- 
+          drawVisuals(fontList);
+          
         }
       
       }
@@ -186,21 +170,13 @@ void mousePressed() {
       if (mouseX >= (width / 2) - (variables.get("buttonWidth") * 2)) {
           
         if (variables.get("currentFontNum") > 0) {
-      
-        variables.set("currentFontNum", variables.get("currentFontNum") - 1);
+        
+          variables.set("currentFontNum", variables.get("currentFontNum") - 1);
     
-        fill(255);
-        rect(-1, 80, width + 1, height - 130);
+          String[] fontList = PFont.list();
     
-        String[] fontList = PFont.list();
-    
-        textFont(createFont(fontList[variables.get("currentFontNum")], 128));
-        fill(0);
-        textSize(20);
-        text(fontList[variables.get("currentFontNum")] + "\n Font #" + variables.get("currentFontNum"), 300, 200);
-    
-        println("Current font is " + fontList[variables.get("currentFontNum")] + ", which is font #" + variables.get("currentFontNum"));
-
+          drawVisuals(fontList);
+        
         }
       
       }
@@ -213,20 +189,12 @@ void mousePressed() {
           
         if (variables.get("currentFontNum") - 9 > 0) {
       
-        variables.set("currentFontNum", variables.get("currentFontNum") - 10);
+          variables.set("currentFontNum", variables.get("currentFontNum") - 10);
     
-        fill(255);
-        rect(-1, 80, width + 1, height - 130);
+          String[] fontList = PFont.list();
     
-        String[] fontList = PFont.list();
-    
-        textFont(createFont(fontList[variables.get("currentFontNum")], 128));
-        fill(0);
-        textSize(20);
-        text(fontList[variables.get("currentFontNum")] + "\n Font #" + variables.get("currentFontNum"), 300, 200);
-    
-        println("Current font is " + fontList[variables.get("currentFontNum")] + ", which is font #" + variables.get("currentFontNum"));
-
+          drawVisuals(fontList);
+        
         }
       
       }
@@ -239,20 +207,12 @@ void mousePressed() {
           
         if (variables.get("currentFontNum") - 99 > 0) {
       
-        variables.set("currentFontNum", variables.get("currentFontNum") - 100);
+          variables.set("currentFontNum", variables.get("currentFontNum") - 100);
     
-        fill(255);
-        rect(-1, 80, width + 1, height - 130);
+          String[] fontList = PFont.list();
     
-        String[] fontList = PFont.list();
-    
-        textFont(createFont(fontList[variables.get("currentFontNum")], 128));
-        fill(0);
-        textSize(20);
-        text(fontList[variables.get("currentFontNum")] + "\n Font #" + variables.get("currentFontNum"), 300, 200);
-    
-        println("Current font is " + fontList[variables.get("currentFontNum")] + ", which is font #" + variables.get("currentFontNum"));
-
+          drawVisuals(fontList);
+        
         }
       
       }
@@ -273,39 +233,23 @@ void keyPressed() {
       if (variables.get("currentFontNum") < variables.get("totalFonts") - 1) {
        
         variables.set("currentFontNum", variables.get("currentFontNum") + 1);
-        
-        fill(255);
-        rect(-1, 80, width + 1, height - 130);
-    
+
         String[] fontList = PFont.list();
     
-        textFont(createFont(fontList[variables.get("currentFontNum")], 128));
-        fill(0);
-        textSize(20);
-        text(fontList[variables.get("currentFontNum")] + "\n Font #" + variables.get("currentFontNum"), 300, 200);
-    
-        println("Current font is " + fontList[variables.get("currentFontNum")] + ", which is font #" + variables.get("currentFontNum"));
- 
+        drawVisuals(fontList);
+        
       }
       
     } else if (keyCode == DOWN) {
       
       if (variables.get("currentFontNum") > 0) {
     
-      variables.set("currentFontNum", variables.get("currentFontNum") - 1);
-  
-      fill(255);
-      rect(-1, 80, width + 1, height - 130);
-  
-      String[] fontList = PFont.list();
-  
-      textFont(createFont(fontList[variables.get("currentFontNum")], 128));
-      fill(0);
-      textSize(20);
-      text(fontList[variables.get("currentFontNum")] + "\n Font #" + variables.get("currentFontNum"), 300, 200);
-  
-      println("Current font is " + fontList[variables.get("currentFontNum")] + ", which is font #" + variables.get("currentFontNum"));
+        variables.set("currentFontNum", variables.get("currentFontNum") - 1);
 
+        String[] fontList = PFont.list();
+  
+        drawVisuals(fontList);
+        
       }
       
     }
